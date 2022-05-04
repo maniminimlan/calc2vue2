@@ -3,7 +3,7 @@
     <img alt="Vue logo" src="@/assets/logo.png" />
     <TableCosts :tableData="tableDataPaginate" :tableHead="getTableHead" />
     <PaginatePage :data="getTableData" @paginateData="paginateData"/>
-    <TableAdd @addNewPayment="addNewPayment" />
+    <TableAdd/>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import TableCosts from "@/components/TableCosts.vue";
 import TableAdd from "@/components/TableAdd.vue";
 import PaginatePage from "@/components/PaginatePage.vue"
 
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters} from "vuex";
 
 export default {
   name: "App",
@@ -27,10 +27,6 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["addTableItem"]),
-    addNewPayment(NewPayment) {
-      this.addTableItem(NewPayment);
-    },
     paginateData(data){
       this.tableDataPaginate = data
     }
