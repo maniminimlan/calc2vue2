@@ -1,18 +1,53 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <img alt="Vue logo" src="@/assets/logo.png" />
+    <TableCosts :tableData="tableDataPaginate" :tableHead="getTableHead" />
+    <PaginatePage :data="getTableData" @paginateData="paginateData"/>
+    <TableAdd @addNewPayment="addNewPayment" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import TableCosts from "@/components/TableCosts.vue";
+import TableAdd from "@/components/TableAdd.vue";
+import PaginatePage from "@/components/PaginatePage.vue"
+
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
-  name: 'HomeView',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    TableCosts,
+    TableAdd,
+    PaginatePage,
+  },
+  data() {
+    return {
+      tableDataPaginate: [],
+    };
+  },
+  methods: {
+    ...mapMutations(["addTableItem"]),
+    addNewPayment(NewPayment) {
+      this.addTableItem(NewPayment);
+    },
+    paginateData(data){
+      this.tableDataPaginate = data
+    }
+  },
+  computed: {
+    ...mapGetters(["getTableData", "getTableHead"]),
+  },
+};
 </script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
